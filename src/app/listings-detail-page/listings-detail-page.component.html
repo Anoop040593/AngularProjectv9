@@ -1,5 +1,6 @@
 
-<div class="content-box">
+<div class="content-box" *ngIf="!isLoading">
+    <p>This listing has been viewed {{listing.views}} times</p>
     <a routerLink="/listings">
         <button>Back</button>
     </a>
@@ -10,3 +11,5 @@
         <button>Contact Seller</button>
     </a>
 </div>
+
+<div class="content-box" *ngIf="isLoading">Loading...</div>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { ListingsService } from '../listings.service';
 @Component({
   selector: 'app-new-listings-page',
   templateUrl: './new-listings-page.component.html',
@@ -10,12 +10,18 @@ export class NewListingsPageComponent implements OnInit {
   name: string = '';
   description: string = '';
   price: string = '';
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private listingsService: ListingsService
+  ) {}
 
   ngOnInit(): void {}
 
-  onSubmit(): void {
-    alert('creating new Listing...');
-    this.router.navigateByUrl('/my-listings');
+  onSubmit({ name, description, price }): void {
+    this.listingsService
+      .createListing(name, description, price)
+      .subscribe(() => {
+        this.router.navigateByUrl('/my-listings');
+      });
   }
 }
